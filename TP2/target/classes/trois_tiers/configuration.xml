@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:trois_tiers/configuration.properties" />
+
+    <bean id="stockage" class="trois_tiers.Stockage">
+        <property name="nomFichier" value="${stockage.nomFichier}" />
+    </bean>
+
+    <bean id="metier" class="trois_tiers.Metier">
+        <property name="stockage" ref="stockage" />
+    </bean>
+
+    <bean id="presentation" class="trois_tiers.Presentation">
+        <property name="utilisateur" value="${presentation.utilisateur}" />
+        <property name="metier" ref="metier" />
+    </bean>
+
+</beans>
