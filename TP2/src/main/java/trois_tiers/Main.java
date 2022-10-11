@@ -19,6 +19,7 @@ public class Main
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
                 "trois_tiers/configuration.xml");
         Presentation presentation = ctx.getBean("presentation", Presentation.class);
+        System.out.println(presentation);
         System.out.println("Fermer configuration.xml");
         ctx.close();
     }
