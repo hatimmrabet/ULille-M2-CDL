@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  vars:
+    db_volume: mysql
+    wordpress: wordpress
+  tasks:
+    - name: Deploy mysql server
+      docker_container:
+        image: mysql
+        name: db
+        env:
+          MYSQL_DATABASE: db
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+          MYSQL_ROOT_PASSWORD: wordpress
+        volumes:
+          - db:/var/lib/mysql
+            
+
+    - name: Deploy WordPress
+      docker_container:
+        image: wordpress
+        name: wordpress
+        restart_policy: always
+        ports:
+          - '8080:80'
+        env:
+          MYSQL_HOST: mysql
+          MYSQL_DATABASE: db
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+        volumes:
+          - wordpress:/var/www/html
